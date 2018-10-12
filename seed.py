@@ -7,29 +7,26 @@ Base.metadata.create_all(bind=engine)
 
 if __name__ == '__main__':
     ingredients = [
-        Ingredient(name=ing_name) 
-        for ing_name 
-        in [
-            'chicken', 
-            'beef', 
-            'olive oil', 
-            'salt', 
-            'pepper', 
-            'hot sauce', 
-            'broccoli', 
-            'green beans', 
-            'spinach', 
-            'carrots'
-        ]]
+        Ingredient(name=ing_name) for ing_name in [
+            'chicken',
+            'beef',
+            'olive oil',
+            'salt',
+            'pepper',
+            'hot sauce',
+            'broccoli',
+            'green beans',
+            'spinach',
+            'carrots',
+            'soy sauce',
+        ]
+    ]
     db_session.add_all(ingredients)
     db_session.commit()
 
-    recipes = [
-        Recipe(
-            name=f'recipe {number}',
-            ingredients=random.sample(ingredients, 4)
-        ) for number in range(3)
-    ]
+    recipes = (Recipe(
+        name=f'recipe {number}', ingredients=random.sample(ingredients, 4))
+               for number in range(1000))
 
     db_session.add_all(ingredients)
     db_session.commit()
